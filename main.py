@@ -13,10 +13,11 @@ async def on_ready():
 @client.command()   # below the name of the function will be the name which we need to write after command_prefix in discord in order to make that function work
 async def gif(ctx):  # need to add ctx parameter for ctx.reply         
 # Since it is a async function we need to add it under client.command
-    content = requests.get("api.giphy.com/v1/gifs/search").text
-    data = json.loads(content,)
-    meme = discord.Embed(title=f"{data['title']}", Color = discord.Color.random()).set_image(url=f"{data['url']}")
-    await ctx.reply(embed=meme)
+    key ="63ed5RD05T7cGKILws99tVQ9wM8L124L" ;
+    content = requests.get(f"http://api.giphy.com/v1/gifs/random?api_key={key}&limit=1").text
+    data = json.loads(content)
+    gif = discord.Embed(Color = discord.Color.random()).set_image(url=data["data"]["images"]["fixed_height_downsampled"]["url"])
+    await ctx.reply(embed=gif)
 my_secret = os.environ['TOKEN'] # .env file i which the TOKEN consists of token
 
 alive()
